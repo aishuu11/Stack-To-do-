@@ -5,17 +5,22 @@ task_dict = {"1": "study"}
 
 def menu():
      
-     print("MY STACK TO-DO LIST\n")
+    print("MY STACK TO-DO LIST\n")
 
-     for option in menu_list: 
+    for option in menu_list: 
           print(option)
 
-     option_num = int(input("Choose an option num : "))
+    try:
+        option_num = int(input("Choose an option num : "))
 
-     if option_num not in [1,2,3,4,5]:
+    except ValueError:
+        print("Please enter a number from 1 to 5.")
+        return None
+
+    if option_num not in [1,2,3,4,5]:
         print("Invalid option number") 
 
-     return option_num
+    return option_num
      
 def display_task():
     print("Tasks : ")
@@ -27,7 +32,13 @@ def display_task():
 def adding_task():
     task_num = len(task_dict) + 1
     task = input("What is your task? ")
-    task_dict[str(task_num)] = task
+
+    while task == "": 
+        task = input("What is your task? ")
+
+        if task:
+            task_dict[str(task_num)] = task
+
     display_task()
 
 
@@ -61,6 +72,8 @@ if __name__ == "__main__":
 
     while True: 
         num = menu()
+        if num == None:
+            continue
 
         if num == 1:
             adding_task()
@@ -78,6 +91,7 @@ if __name__ == "__main__":
             print("Bye")
             break
 
+        
 
 
 
