@@ -1,29 +1,84 @@
-print("Stack To - Do List")
+
+menu_list = ["Options", "1. Add task", "2. Complete task", "3. Delete task", "4. View tasks","5. Exit"]
+task_dict = {"1": "study"}
 
 
-task_list = ["learn python", "practice leetcode",]
+def menu():
+     
+     print("MY STACK TO-DO LIST\n")
 
+     for option in menu_list: 
+          print(option)
+
+     option_num = int(input("Choose an option num : "))
+
+     if option_num not in [1,2,3,4,5]:
+        print("Invalid option number") 
+
+     return option_num
+     
 def display_task():
-    for num,task in enumerate(task_list):
-        print(f"{num+1} : {task}")
-
-def adding_task():
-        task = input('what is your task? ')
-        task_list.append(task)
-
-
-display_task()
-
-
-add = input("Do you want to add a task? ")
-
-while add.strip().lower() == "yes": 
-    adding_task()
-    print("Added")
-    add = input("Do you want to add a task? ")
-
+    print("Tasks : ")
+    for key, value in task_dict.items() :
+        print(f"{key} : {value}")
     
 
-display_task()
+
+def adding_task():
+    task_num = len(task_dict) + 1
+    task = input("What is your task? ")
+    task_dict[str(task_num)] = task
+    display_task()
+
+
+
+def delete_task():
+    delete_num = input("Which task number do you want to delete? ")
+
+    if delete_num in task_dict:
+        del task_dict[delete_num]
+        print("Deleted")
+        display_task()
+    else:
+        print("Invalid task number")
+
+
+def complete_task():
+    complete_num = input("Which task number did u complete? ")
+
+    if complete_num in task_dict: 
+        task_dict[complete_num] = "completed"
+        display_task()
+
+    else:
+        print("Invalid task number")
+
+
+
+
+if __name__ == "__main__":
+
+
+    while True: 
+        num = menu()
+
+        if num == 1:
+            adding_task()
+
+        elif num == 2: 
+            complete_task()
+
+        elif num == 3 :
+            delete_task()
+
+        elif num == 4:
+            display_task()
+
+        elif num == 5:
+            print("Bye")
+            break
+
+
+
 
 
