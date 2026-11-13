@@ -19,8 +19,17 @@ if add_button and text_task.strip():
 
 
 
+
+
+# we have to try to delete a button 
+
+# we add the button into the interface first
+
+
 for task in st.session_state["tasks"]:
     with st.container(border=True):
         st.write(task)
+        st.checkbox("Done?")
+        
 
 
