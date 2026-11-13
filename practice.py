@@ -1,9 +1,23 @@
 
 
 import datetime as dt
+import json 
+from pathlib import Path
+
+Tasks_file = Path("tasks.json")
+
+# rmb json has to methods one is dump -write file inside it and another one is load which is to load data from it 
+
+
+
 
 menu_list = ["Options", "1. Add task", "2. Complete task", "3. Delete task", "4. View tasks","5. Clear All", "6. Exit"]
-task_dict = {"1": "study"}
+
+with Tasks_file.open("r") as file: 
+    task_dict = json.load(file)
+
+
+
 
 
 def menu():
@@ -25,11 +39,15 @@ def menu():
         print("Invalid option number") 
 
     return option_num
+
+
      
 def display_task():
     print("Tasks : ")
     for key, value in task_dict.items() :
         print(f"{key} : {value}")
+    
+
     
 
 
@@ -40,8 +58,10 @@ def adding_task():
     while task == "": 
         task = input("What is your task? ")
 
+
     task_dict[str(task_num)] = task
 
+    save_tasks()
     display_task()
 
 
@@ -56,6 +76,10 @@ def delete_task():
     else:
         print("Invalid task number")
 
+    save_tasks()
+
+    
+
 
 def complete_task():
     complete_num = input("Which task number did u complete? ")
@@ -67,10 +91,20 @@ def complete_task():
     else:
         print("Invalid task number")
 
+    save_tasks()
+    display_task()
+
 
 def clearAll(): 
     task_dict.clear()
+    save_tasks()
     print("cleared all")
+
+
+def save_tasks():
+    with Tasks_file.open("w") as file: 
+        json.dump(task_dict,file,indent=2)
+
 
 
 
